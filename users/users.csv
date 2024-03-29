@@ -1,0 +1,23 @@
+﻿UserID,FullName,Age,Email,RegistrationDate,LastLoginDate,PurchaseTotal
+101,John Doe,30,johndoe@example.com,2021-01-10,2023-03-01,150
+111,Alice Johnson,,alicejohnson@example.com,2022-07-15,,
+112,Bob Marley,27,bobmarley@example.com,2021-05-20,2023-02-28,
+113,Cathy Smith,null,cathysmith@example.com,2019-10-12,2023-02-27,210.5
+,Null User,25,,2020-12-01,2023-02-25,100
+114,Derek Nowak,29,dereknowak@example.com,2020-03-17,2023-02-24,180.75
+115,Eva Green,null,evagreen@example.com,2018-08-22,2023-02-23,
+116,Frank Poe,34,frankpoe@example.com,2019-11-13,2023-02-22,190.4
+101,John Doe,30,johndoe@example.com,2021-01-10,2023-03-01,150
+117,George Kay,28,georgekay@example.com,2021-06-07,2023-02-21,170
+118,Hanna Lux,32,hannalux@example.com,2019-02-18,2023-02-20,220.15
+119,Ian Volt,26,ianvolt@example.com,2020-07-23,2023-02-19,130
+120,Julia Nex,24,julianex@example.com,2022-01-12,2023-02-18,145.6
+121,Kevin Yolt,null,kevinyolt@example.com,2021-03-14,2023-02-17,
+122,Lana Molt,31,lanamolt@example.com,2020-09-09,2023-02-16,155.3
+123,Mike Dolt,33,mikedolt@example.com,2018-05-05,2023-02-15,205
+124,Nina Colt,27,ninacolt@example.com,2019-07-29,2023-02-14,160.75
+125,Oscar Holt,29,oscarholt@example.com,2022-11-11,2023-02-13,175.45
+126,Patty Jolt,31,pattyjolt@example.com,2018-12-13,2023-02-12,185.9
+127,Quincy Molt,34,quincymolt@example.com,2020-04-17,2023-02-11,195.25
+128,Rita Bolt,36,ritabolt@example.com,2021-08-21,2023-02-10,210.5
+112,Bob Marley,27,bobmarley@example.com,2021-05-20,2023-02-28,

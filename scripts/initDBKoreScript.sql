@@ -52,6 +52,33 @@ RecordLastUpdated DATETIME DEFAULT GETDATE()
 );
 END
 GO
+
+--------------------------------------------------
+-- -- create table to store removed records for future consideration due to error
+--------------------------------------------------
+-- Check and create err schema if it does not exist
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'err')
+BEGIN
+EXEC('CREATE SCHEMA err');
+END
+GO
+
+-- Check and create err.Users table if it does not exist
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'err.Users') AND type in (N'U'))
+BEGIN
+CREATE TABLE err.Users (
+StgID INT IDENTITY(1,1),
+UserID INT,
+FullName NVARCHAR(255),
+Age INT,
+Email NVARCHAR(255),
+RegistrationDate DATE,
+LastLoginDate DATE,
+PurchaseTotal FLOAT
+);
+END
+GO
+
 -- Insert baseline records to prod table
 IF (SELECT COUNT(*) FROM prod.Users) = 0
 BEGIN

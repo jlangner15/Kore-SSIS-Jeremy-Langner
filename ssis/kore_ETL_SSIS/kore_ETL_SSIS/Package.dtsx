@@ -11,8 +11,8 @@
   DTS:LocaleID="4105"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="56"
-  DTS:VersionGUID="{F85F3D4B-98D9-4CDD-A575-BA5272B6EC1B}">
+  DTS:VersionBuild="98"
+  DTS:VersionGUID="{D5D2A14E-6A12-4CD5-9184-7D6C620E1A67}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -123,82 +123,6 @@
         <pipeline
           version="1">
           <components>
-            <component
-              refId="Package\Extract User Data\Derived Column"
-              componentClassID="Microsoft.DerivedColumn"
-              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
-              name="Derived Column"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\Extract User Data\Derived Column.Inputs[Derived Column Input]"
-                  description="Input to the Derived Column Transformation"
-                  name="Derived Column Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Extract User Data\Derived Column.Inputs[Derived Column Input].Columns[Age]"
-                      cachedCodepage="65001"
-                      cachedDataType="str"
-                      cachedLength="4"
-                      cachedName="Age"
-                      errorOrTruncationOperation="Computation"
-                      errorRowDisposition="FailComponent"
-                      lineageId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[Age]"
-                      truncationRowDisposition="FailComponent"
-                      usageType="readWrite">
-                      <properties>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Expression"
-                          name="Expression">#{Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[Age]} == "null" ? NULL(DT_WSTR,50) : #{Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[Age]}</property>
-                        <property
-                          containsID="true"
-                          dataType="System.String"
-                          description="Derived Column Friendly Expression"
-                          expressionType="Notify"
-                          name="FriendlyExpression">Age == "null" ? NULL(DT_WSTR,50) : Age</property>
-                      </properties>
-                    </inputColumn>
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Extract User Data\Derived Column.Outputs[Derived Column Output]"
-                  description="Default Output of the Derived Column Transformation"
-                  exclusionGroup="1"
-                  name="Derived Column Output"
-                  synchronousInputId="Package\Extract User Data\Derived Column.Inputs[Derived Column Input]">
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Extract User Data\Derived Column.Outputs[Derived Column Error Output]"
-                  description="Error Output of the Derived Column Transformation"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Derived Column Error Output"
-                  synchronousInputId="Package\Extract User Data\Derived Column.Inputs[Derived Column Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Extract User Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Extract User Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Extract User Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Extract User Data\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
             <component
               refId="Package\Extract User Data\Extract User Data"
               componentClassID="Microsoft.FlatFileSource"
@@ -441,11 +365,11 @@
               </outputs>
             </component>
             <component
-              refId="Package\Extract User Data\OLE DB Destination"
+              refId="Package\Extract User Data\OLE DB Destination Staging"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
-              name="OLE DB Destination"
+              name="OLE DB Destination Staging"
               usesDispositions="true"
               version="4">
               <properties>
@@ -498,7 +422,7 @@
               </properties>
               <connections>
                 <connection
-                  refId="Package\Extract User Data\OLE DB Destination.Connections[OleDbConnection]"
+                  refId="Package\Extract User Data\OLE DB Destination Staging.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   description="The OLE DB runtime connection used to access the database."
@@ -506,93 +430,93 @@
               </connections>
               <inputs>
                 <input
-                  refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[UserID]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].Columns[UserID]"
                       cachedDataType="i2"
                       cachedName="UserID"
-                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
+                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
                       lineageId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[UserID]" />
                     <inputColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FullName]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].Columns[FullName]"
                       cachedDataType="wstr"
                       cachedLength="13"
                       cachedName="FullName"
-                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
                       lineageId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[FullName]" />
                     <inputColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Age]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].Columns[Age]"
                       cachedCodepage="65001"
                       cachedDataType="str"
                       cachedLength="4"
                       cachedName="Age"
-                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
+                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
                       lineageId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[Age]" />
                     <inputColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Email]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].Columns[Email]"
                       cachedDataType="wstr"
                       cachedLength="24"
                       cachedName="Email"
-                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
                       lineageId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[Email]" />
                     <inputColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[RegistrationDate]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].Columns[RegistrationDate]"
                       cachedDataType="date"
                       cachedName="RegistrationDate"
-                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
+                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
                       lineageId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[RegistrationDate]" />
                     <inputColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LastLoginDate]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].Columns[LastLoginDate]"
                       cachedDataType="date"
                       cachedName="LastLoginDate"
-                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
+                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
                       lineageId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[LastLoginDate]" />
                     <inputColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PurchaseTotal]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].Columns[PurchaseTotal]"
                       cachedDataType="r4"
                       cachedName="PurchaseTotal"
-                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
+                      externalMetadataColumnId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
                       lineageId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[PurchaseTotal]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StgID]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[StgID]"
                       dataType="i4"
                       name="StgID" />
                     <externalMetadataColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
                       dataType="i4"
                       name="UserID" />
                     <externalMetadataColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
                       dataType="wstr"
                       length="255"
                       name="FullName" />
                     <externalMetadataColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
                       dataType="i4"
                       name="Age" />
                     <externalMetadataColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
                       dataType="wstr"
                       length="255"
                       name="Email" />
                     <externalMetadataColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
                       dataType="dbDate"
                       name="RegistrationDate" />
                     <externalMetadataColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
                       dataType="dbDate"
                       name="LastLoginDate" />
                     <externalMetadataColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
                       dataType="r8"
                       name="PurchaseTotal" />
                   </externalMetadataColumns>
@@ -600,22 +524,98 @@
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Extract User Data\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Extract User Data\OLE DB Destination Staging.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Extract User Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Extract User Data\OLE DB Destination Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Extract User Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Extract User Data\OLE DB Destination Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Extract User Data\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Extract User Data\OLE DB Destination Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Extract User Data\Set null Columns"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Set null Columns"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Extract User Data\Set null Columns.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Extract User Data\Set null Columns.Inputs[Derived Column Input].Columns[Age]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="Age"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[Age]"
+                      truncationRowDisposition="FailComponent"
+                      usageType="readWrite">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">#{Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[Age]} == "null" ? NULL(DT_WSTR,50) : #{Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output].Columns[Age]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">Age == "null" ? NULL(DT_WSTR,50) : Age</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Extract User Data\Set null Columns.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Extract User Data\Set null Columns.Inputs[Derived Column Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Extract User Data\Set null Columns.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Extract User Data\Set null Columns.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Extract User Data\Set null Columns.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Extract User Data\Set null Columns.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Extract User Data\Set null Columns.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Extract User Data\Set null Columns.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -627,14 +627,1142 @@
           <paths>
             <path
               refId="Package\Extract User Data.Paths[Derived Column Output]"
-              endId="Package\Extract User Data\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              endId="Package\Extract User Data\OLE DB Destination Staging.Inputs[OLE DB Destination Input]"
               name="Derived Column Output"
-              startId="Package\Extract User Data\Derived Column.Outputs[Derived Column Output]" />
+              startId="Package\Extract User Data\Set null Columns.Outputs[Derived Column Output]" />
             <path
               refId="Package\Extract User Data.Paths[Flat File Source Output]"
-              endId="Package\Extract User Data\Derived Column.Inputs[Derived Column Input]"
+              endId="Package\Extract User Data\Set null Columns.Inputs[Derived Column Input]"
               name="Flat File Source Output"
               startId="Package\Extract User Data\Extract User Data.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Incremental Load"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C377A7CA-8FCC-4F27-B6D6-5186585BC300}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Incremental Load"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Incremental Load\LookUp Match UserID Stage"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LookUp Match UserID Stage"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [stg].[Users]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [stg].[Users]) [refTable]
+where [refTable].[UserID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="StgID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="UserID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FullName" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Age" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Email" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RegistrationDate" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LastLoginDate" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PurchaseTotal" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[UserID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Incremental Load\LookUp Match UserID Stage.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Incremental Load\LookUp Match UserID Stage.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Incremental Load\LookUp Match UserID Stage.Inputs[Lookup Input].Columns[UserID]"
+                      cachedDataType="i4"
+                      cachedName="UserID"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[UserID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">UserID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Incremental Load\LookUp Match UserID Stage.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Match Output].Columns[UserID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Match Output].Columns[UserID]"
+                      name="UserID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">UserID</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Incremental Load\LookUp Match UserID Stage.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Incremental Load\LookUp Match UserID Stage.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Incremental Load\LookUp UserID Prod"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LookUp UserID Prod"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [prod].[Users]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [prod].[Users]) [refTable]
+where [refTable].[UserID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="UserID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FullName" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Age" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Email" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RegistrationDate" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="LastLoginDate" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="PurchaseTotal" dataType="DT_R8" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="RecordLastUpdated" dataType="DT_DBTIMESTAMP" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Incremental Load\LookUp UserID Prod.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Incremental Load\LookUp UserID Prod.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Incremental Load\LookUp UserID Prod.Inputs[Lookup Input].Columns[UserID]"
+                      cachedDataType="i4"
+                      cachedName="UserID"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">UserID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Incremental Load\LookUp UserID Prod.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup Match Output].Columns[UserID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup Match Output].Columns[UserID]"
+                      name="UserID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">UserID</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Incremental Load\LookUp UserID Prod.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Incremental Load\LookUp UserID Prod.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="OLE DB Command Update Prod RecordLastUpdated"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">exec upsertRecordLastUpdated ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input].Columns[UserID]"
+                      cachedDataType="i4"
+                      cachedName="UserID"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input].ExternalColumns[@p_UserId]"
+                      lineageId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Match Output].Columns[UserID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input].ExternalColumns[@p_UserId]"
+                      dataType="i4"
+                      name="@p_UserId">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Incremental Load\OLE DB Destination Prod"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination Prod"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[prod].[Users]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Incremental Load\OLE DB Destination Prod.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].Columns[UserID]"
+                      cachedDataType="i4"
+                      cachedName="UserID"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].Columns[FullName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="FullName"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[FullName]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].Columns[Age]"
+                      cachedDataType="i4"
+                      cachedName="Age"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Age]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].Columns[Email]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Email"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Email]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].Columns[RegistrationDate]"
+                      cachedDataType="dbDate"
+                      cachedName="RegistrationDate"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[RegistrationDate]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].Columns[LastLoginDate]"
+                      cachedDataType="dbDate"
+                      cachedName="LastLoginDate"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[LastLoginDate]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].Columns[PurchaseTotal]"
+                      cachedDataType="r8"
+                      cachedName="PurchaseTotal"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[PurchaseTotal]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
+                      dataType="i4"
+                      name="UserID" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      dataType="wstr"
+                      length="255"
+                      name="FullName" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
+                      dataType="i4"
+                      name="Age" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="255"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
+                      dataType="dbDate"
+                      name="RegistrationDate" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
+                      dataType="dbDate"
+                      name="LastLoginDate" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
+                      dataType="r8"
+                      name="PurchaseTotal" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input].ExternalColumns[RecordLastUpdated]"
+                      dataType="dbTimeStamp"
+                      name="RecordLastUpdated" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Incremental Load\OLE DB Destination Prod.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Destination Prod.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Destination Prod.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Destination Prod.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Incremental Load\OLE DB Source Prod"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source Prod"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[prod].[Users]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Incremental Load\OLE DB Source Prod.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[UserID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[UserID]"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[UserID]"
+                      name="UserID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[FullName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                      length="255"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[FullName]"
+                      name="FullName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[Age]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[Age]"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[Age]"
+                      name="Age"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[Email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      length="255"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[Email]"
+                      name="Email"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[RegistrationDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[RegistrationDate]"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[RegistrationDate]"
+                      name="RegistrationDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[LastLoginDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[LastLoginDate]"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[LastLoginDate]"
+                      name="LastLoginDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[PurchaseTotal]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[PurchaseTotal]"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[PurchaseTotal]"
+                      name="PurchaseTotal"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[RecordLastUpdated]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[RecordLastUpdated]"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[RecordLastUpdated]"
+                      name="RecordLastUpdated"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[UserID]"
+                      dataType="i4"
+                      name="UserID" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                      dataType="wstr"
+                      length="255"
+                      name="FullName" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[Age]"
+                      dataType="i4"
+                      name="Age" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="255"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[RegistrationDate]"
+                      dataType="dbDate"
+                      name="RegistrationDate" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[LastLoginDate]"
+                      dataType="dbDate"
+                      name="LastLoginDate" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[PurchaseTotal]"
+                      dataType="r8"
+                      name="PurchaseTotal" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].ExternalColumns[RecordLastUpdated]"
+                      dataType="dbTimeStamp"
+                      name="RecordLastUpdated" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[UserID]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[UserID]"
+                      name="UserID" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                      name="FullName" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[Age]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[Age]"
+                      name="Age" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      name="Email" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[RegistrationDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[RegistrationDate]"
+                      name="RegistrationDate" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[LastLoginDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[LastLoginDate]"
+                      name="LastLoginDate" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[PurchaseTotal]"
+                      dataType="r8"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[PurchaseTotal]"
+                      name="PurchaseTotal" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[RecordLastUpdated]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[RecordLastUpdated]"
+                      name="RecordLastUpdated" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Incremental Load\OLE DB Source Staging"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source Staging"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[stg].[Users]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Incremental Load\OLE DB Source Staging.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[StgID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[StgID]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[StgID]"
+                      name="StgID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[UserID]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]"
+                      name="UserID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[FullName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                      length="255"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[FullName]"
+                      name="FullName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Age]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[Age]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Age]"
+                      name="Age"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Email]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      length="255"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Email]"
+                      name="Email"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[RegistrationDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[RegistrationDate]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[RegistrationDate]"
+                      name="RegistrationDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[LastLoginDate]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[LastLoginDate]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[LastLoginDate]"
+                      name="LastLoginDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[PurchaseTotal]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[PurchaseTotal]"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[PurchaseTotal]"
+                      name="PurchaseTotal"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[StgID]"
+                      dataType="i4"
+                      name="StgID" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[UserID]"
+                      dataType="i4"
+                      name="UserID" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                      dataType="wstr"
+                      length="255"
+                      name="FullName" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[Age]"
+                      dataType="i4"
+                      name="Age" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      dataType="wstr"
+                      length="255"
+                      name="Email" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[RegistrationDate]"
+                      dataType="dbDate"
+                      name="RegistrationDate" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[LastLoginDate]"
+                      dataType="dbDate"
+                      name="LastLoginDate" />
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[PurchaseTotal]"
+                      dataType="r8"
+                      name="PurchaseTotal" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[StgID]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[StgID]"
+                      name="StgID" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[UserID]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[UserID]"
+                      name="UserID" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                      name="FullName" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[Age]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[Age]"
+                      name="Age" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      name="Email" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[RegistrationDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[RegistrationDate]"
+                      name="RegistrationDate" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[LastLoginDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[LastLoginDate]"
+                      name="LastLoginDate" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[PurchaseTotal]"
+                      dataType="r8"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[PurchaseTotal]"
+                      name="PurchaseTotal" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Incremental Load.Paths[Lookup Match Output]"
+              endId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input]"
+              name="Lookup Match Output"
+              startId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Incremental Load.Paths[Lookup No Match Output]"
+              endId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input]"
+              name="Lookup No Match Output"
+              startId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Incremental Load.Paths[OLE DB Source Output]"
+              endId="Package\Incremental Load\LookUp UserID Prod.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Incremental Load.Paths[OLE DB Source Output1]"
+              endId="Package\Incremental Load\LookUp Match UserID Stage.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -654,11 +1782,11 @@
           version="1">
           <components>
             <component
-              refId="Package\Migrate Invalid User Data to Err Table\Lookup"
+              refId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users"
               componentClassID="Microsoft.Lookup"
               contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
               description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
-              name="Lookup"
+              name="Lookup Null Name Users"
               usesDispositions="true"
               version="6">
               <properties>
@@ -714,7 +1842,7 @@ where [refTable].[FullName] = ?</property>
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[FullName]};</property>
+                  name="ParameterMap">#{Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[FullName]};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -726,7 +1854,7 @@ where [refTable].[FullName] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Migrate Invalid User Data to Err Table\Lookup.Connections[OleDbConnection]"
+                  refId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   description="Connection manager used to access lookup data."
@@ -734,16 +1862,16 @@ where [refTable].[FullName] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Migrate Invalid User Data to Err Table\Lookup.Inputs[Lookup Input]"
+                  refId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Inputs[Lookup Input]"
                   name="Lookup Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\Lookup.Inputs[Lookup Input].Columns[FullName]"
+                      refId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Inputs[Lookup Input].Columns[FullName]"
                       cachedDataType="wstr"
                       cachedLength="255"
                       cachedName="FullName"
                       errorOrTruncationOperation="Copy Column"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[FullName]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[FullName]"
                       truncationRowDisposition="FailComponent"
                       usageType="readWrite">
                       <properties>
@@ -763,38 +1891,38 @@ where [refTable].[FullName] = ?</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Migrate Invalid User Data to Err Table\Lookup.Outputs[Lookup Match Output]"
+                  refId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
                   exclusionGroup="1"
                   name="Lookup Match Output"
-                  synchronousInputId="Package\Migrate Invalid User Data to Err Table\Lookup.Inputs[Lookup Input]">
+                  synchronousInputId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Inputs[Lookup Input]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Migrate Invalid User Data to Err Table\Lookup.Outputs[Lookup No Match Output]"
+                  refId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Outputs[Lookup No Match Output]"
                   description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
                   exclusionGroup="1"
                   name="Lookup No Match Output"
-                  synchronousInputId="Package\Migrate Invalid User Data to Err Table\Lookup.Inputs[Lookup Input]">
+                  synchronousInputId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Inputs[Lookup Input]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Migrate Invalid User Data to Err Table\Lookup.Outputs[Lookup Error Output]"
+                  refId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Outputs[Lookup Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Lookup Error Output"
-                  synchronousInputId="Package\Migrate Invalid User Data to Err Table\Lookup.Inputs[Lookup Input]">
+                  synchronousInputId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Inputs[Lookup Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      refId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Outputs[Lookup Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Outputs[Lookup Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      refId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Outputs[Lookup Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Outputs[Lookup Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -803,11 +1931,11 @@ where [refTable].[FullName] = ?</property>
               </outputs>
             </component>
             <component
-              refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination"
+              refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error"
               componentClassID="Microsoft.OLEDBDestination"
               contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
               description="OLE DB Destination"
-              name="OLE DB Destination"
+              name="OLE DB Destination Error"
               usesDispositions="true"
               version="4">
               <properties>
@@ -860,7 +1988,7 @@ where [refTable].[FullName] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Connections[OleDbConnection]"
+                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   description="The OLE DB runtime connection used to access the database."
@@ -868,97 +1996,97 @@ where [refTable].[FullName] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[StgID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].Columns[StgID]"
                       cachedDataType="i4"
                       cachedName="StgID"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StgID]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[StgID]" />
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[StgID]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[StgID]" />
                     <inputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[UserID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].Columns[UserID]"
                       cachedDataType="i4"
                       cachedName="UserID"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[UserID]" />
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]" />
                     <inputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FullName]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].Columns[FullName]"
                       cachedDataType="wstr"
                       cachedLength="255"
                       cachedName="FullName"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[FullName]" />
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[FullName]" />
                     <inputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Age]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].Columns[Age]"
                       cachedDataType="i4"
                       cachedName="Age"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[Age]" />
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Age]" />
                     <inputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Email]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].Columns[Email]"
                       cachedDataType="wstr"
                       cachedLength="255"
                       cachedName="Email"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[Email]" />
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Email]" />
                     <inputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[RegistrationDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].Columns[RegistrationDate]"
                       cachedDataType="dbDate"
                       cachedName="RegistrationDate"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[RegistrationDate]" />
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[RegistrationDate]" />
                     <inputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LastLoginDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].Columns[LastLoginDate]"
                       cachedDataType="dbDate"
                       cachedName="LastLoginDate"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[LastLoginDate]" />
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[LastLoginDate]" />
                     <inputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PurchaseTotal]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].Columns[PurchaseTotal]"
                       cachedDataType="r8"
                       cachedName="PurchaseTotal"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[PurchaseTotal]" />
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[PurchaseTotal]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[StgID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[StgID]"
                       dataType="i4"
                       name="StgID" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[UserID]"
                       dataType="i4"
                       name="UserID" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
                       dataType="wstr"
                       length="255"
                       name="FullName" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[Age]"
                       dataType="i4"
                       name="Age" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
                       dataType="wstr"
                       length="255"
                       name="Email" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[RegistrationDate]"
                       dataType="dbDate"
                       name="RegistrationDate" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[LastLoginDate]"
                       dataType="dbDate"
                       name="LastLoginDate" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input].ExternalColumns[PurchaseTotal]"
                       dataType="r8"
                       name="PurchaseTotal" />
                   </externalMetadataColumns>
@@ -966,22 +2094,22 @@ where [refTable].[FullName] = ?</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Outputs[OLE DB Destination Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Destination Error Output"
-                  synchronousInputId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  synchronousInputId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -990,11 +2118,11 @@ where [refTable].[FullName] = ?</property>
               </outputs>
             </component>
             <component
-              refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source"
+              refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging"
               componentClassID="Microsoft.OLEDBSource"
               contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
               description="OLE DB Source"
-              name="OLE DB Source"
+              name="OLE DB Source Staging"
               usesDispositions="true"
               version="7">
               <properties>
@@ -1039,7 +2167,7 @@ where [refTable].[FullName] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Connections[OleDbConnection]"
+                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   description="The OLE DB runtime connection used to access the database."
@@ -1047,179 +2175,179 @@ where [refTable].[FullName] = ?</property>
               </connections>
               <outputs>
                 <output
-                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output]"
+                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output]"
                   name="OLE DB Source Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[StgID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[StgID]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[StgID]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[StgID]"
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[StgID]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[StgID]"
                       name="StgID"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[UserID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[UserID]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[UserID]"
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[UserID]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]"
                       name="UserID"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[FullName]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[FullName]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
                       length="255"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[FullName]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[FullName]"
                       name="FullName"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[Age]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Age]"
                       dataType="i4"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Age]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[Age]"
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[Age]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Age]"
                       name="Age"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[Email]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Email]"
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[Email]"
                       length="255"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[Email]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[Email]"
                       name="Email"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[RegistrationDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[RegistrationDate]"
                       dataType="dbDate"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RegistrationDate]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[RegistrationDate]"
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[RegistrationDate]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[RegistrationDate]"
                       name="RegistrationDate"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[LastLoginDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[LastLoginDate]"
                       dataType="dbDate"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LastLoginDate]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[LastLoginDate]"
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[LastLoginDate]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[LastLoginDate]"
                       name="LastLoginDate"
                       truncationRowDisposition="FailComponent" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[PurchaseTotal]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[PurchaseTotal]"
                       dataType="r8"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PurchaseTotal]"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[PurchaseTotal]"
+                      externalMetadataColumnId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[PurchaseTotal]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[PurchaseTotal]"
                       name="PurchaseTotal"
                       truncationRowDisposition="FailComponent" />
                   </outputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[StgID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[StgID]"
                       dataType="i4"
                       name="StgID" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[UserID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[UserID]"
                       dataType="i4"
                       name="UserID" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[FullName]"
                       dataType="wstr"
                       length="255"
                       name="FullName" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Age]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[Age]"
                       dataType="i4"
                       name="Age" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Email]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[Email]"
                       dataType="wstr"
                       length="255"
                       name="Email" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RegistrationDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[RegistrationDate]"
                       dataType="dbDate"
                       name="RegistrationDate" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LastLoginDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[LastLoginDate]"
                       dataType="dbDate"
                       name="LastLoginDate" />
                     <externalMetadataColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PurchaseTotal]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output].ExternalColumns[PurchaseTotal]"
                       dataType="r8"
                       name="PurchaseTotal" />
                   </externalMetadataColumns>
                 </output>
                 <output
-                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output]"
                   isErrorOut="true"
                   name="OLE DB Source Error Output">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[StgID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[StgID]"
                       dataType="i4"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[StgID]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[StgID]"
                       name="StgID" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[UserID]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[UserID]"
                       dataType="i4"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[UserID]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[UserID]"
                       name="UserID" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[FullName]"
                       dataType="wstr"
                       length="255"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FullName]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[FullName]"
                       name="FullName" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Age]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[Age]"
                       dataType="i4"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Age]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[Age]"
                       name="Age" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[Email]"
                       dataType="wstr"
                       length="255"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Email]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[Email]"
                       name="Email" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RegistrationDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[RegistrationDate]"
                       dataType="dbDate"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RegistrationDate]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[RegistrationDate]"
                       name="RegistrationDate" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LastLoginDate]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[LastLoginDate]"
                       dataType="dbDate"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LastLoginDate]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[LastLoginDate]"
                       name="LastLoginDate" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PurchaseTotal]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[PurchaseTotal]"
                       dataType="r8"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PurchaseTotal]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[PurchaseTotal]"
                       name="PurchaseTotal" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      refId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -1231,33 +2359,33 @@ where [refTable].[FullName] = ?</property>
           <paths>
             <path
               refId="Package\Migrate Invalid User Data to Err Table.Paths[Lookup Match Output]"
-              endId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              endId="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error.Inputs[OLE DB Destination Input]"
               name="Lookup Match Output"
-              startId="Package\Migrate Invalid User Data to Err Table\Lookup.Outputs[Lookup Match Output]" />
+              startId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Outputs[Lookup Match Output]" />
             <path
               refId="Package\Migrate Invalid User Data to Err Table.Paths[OLE DB Source Output]"
-              endId="Package\Migrate Invalid User Data to Err Table\Lookup.Inputs[Lookup Input]"
+              endId="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users.Inputs[Lookup Input]"
               name="OLE DB Source Output"
-              startId="Package\Migrate Invalid User Data to Err Table\OLE DB Source.Outputs[OLE DB Source Output]" />
+              startId="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging.Outputs[OLE DB Source Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
-      DTS:refId="Package\Remove Duplicates"
+      DTS:refId="Package\Remove Duplicate Users"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
       DTS:DTSID="{D7BE8639-1867-451F-A491-793C6D926E81}"
       DTS:ExecutableType="Microsoft.ExecuteSQLTask"
       DTS:LocaleID="-1"
-      DTS:ObjectName="Remove Duplicates"
+      DTS:ObjectName="Remove Duplicate Users"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
       DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{90A35C9B-2108-43D7-9A82-B2CA57BED192}"
-          SQLTask:SqlStatementSource="DELETE FROM stg.Users&#xA;WHERE        (StgID NOT IN&#xA;                             (SELECT        MAX(StgID) AS MaxUserStgID&#xA;                               FROM            stg.Users Users_1&#xA;                               GROUP BY UserID, FullName)) OR&#xA;                         (FullName LIKE 'Null%')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="EXEC stgRemoveDuplicatesNullUsers" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -1271,13 +2399,21 @@ where [refTable].[FullName] = ?</property>
       DTS:ObjectName="Constraint"
       DTS:To="Package\Migrate Invalid User Data to Err Table" />
     <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{13F0AEBB-13B0-4184-B530-066801AD3980}"
+      DTS:From="Package\Remove Duplicate Users"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Incremental Load" />
+    <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
       DTS:DTSID="{43C050FC-5D2E-4DA2-916E-B85D9395A44D}"
       DTS:From="Package\Migrate Invalid User Data to Err Table"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 2"
-      DTS:To="Package\Remove Duplicates" />
+      DTS:To="Package\Remove Duplicate Users" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -1300,35 +2436,23 @@ where [refTable].[FullName] = ?</property>
           Id="Package\Migrate Invalid User Data to Err Table"
           TopLeft="242,296" />
         <NodeLayout
-          Size="174,42"
-          Id="Package\Remove Duplicates"
+          Size="201,42"
+          Id="Package\Remove Duplicate Users"
           TopLeft="269,399" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="373.5,338">
+          TopLeft="371.5,338">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-17.5,61"
+              EndConnector="0,61"
               Start="0,0"
-              End="-17.5,53.5">
+              End="0,53.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,26.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,26.5"
-                    Point2="0,30.5"
-                    Point3="-4,30.5" />
-                  <mssgle:LineSegment
-                    End="-13.5,30.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-13.5,30.5"
-                    Point2="-17.5,30.5"
-                    Point3="-17.5,34.5" />
-                  <mssgle:LineSegment
-                    End="-17.5,53.5" />
+                    End="0,53.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1371,6 +2495,44 @@ where [refTable].[FullName] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="164,42"
+          Id="Package\Incremental Load"
+          TopLeft="271,486" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="369.5,441">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-16.5,45"
+              Start="0,0"
+              End="-16.5,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.5"
+                    Point2="0,22.5"
+                    Point3="-4,22.5" />
+                  <mssgle:LineSegment
+                    End="-12.5,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-12.5,22.5"
+                    Point2="-16.5,22.5"
+                    Point3="-16.5,26.5" />
+                  <mssgle:LineSegment
+                    End="-16.5,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1384,12 +2546,12 @@ where [refTable].[FullName] = ?</property>
           Id="Package\Extract User Data\Extract User Data"
           TopLeft="317,180" />
         <NodeLayout
-          Size="177,42"
-          Id="Package\Extract User Data\OLE DB Destination"
+          Size="218,42"
+          Id="Package\Extract User Data\OLE DB Destination Staging"
           TopLeft="364,405" />
         <NodeLayout
-          Size="158,42"
-          Id="Package\Extract User Data\Derived Column"
+          Size="162,42"
+          Id="Package\Extract User Data\Set null Columns"
           TopLeft="488,280" />
         <EdgeLayout
           Id="Package\Extract User Data.Paths[Flat File Source Output]"
@@ -1397,9 +2559,9 @@ where [refTable].[FullName] = ?</property>
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="167,58"
+              EndConnector="169,58"
               Start="0,0"
-              End="167,50.5">
+              End="169,50.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -1410,13 +2572,13 @@ where [refTable].[FullName] = ?</property>
                     Point2="0,29"
                     Point3="4,29" />
                   <mssgle:LineSegment
-                    End="163,29" />
+                    End="165,29" />
                   <mssgle:CubicBezierSegment
-                    Point1="163,29"
-                    Point2="167,29"
-                    Point3="167,33" />
+                    Point1="165,29"
+                    Point2="169,29"
+                    Point3="169,33" />
                   <mssgle:LineSegment
-                    End="167,50.5" />
+                    End="169,50.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1427,13 +2589,13 @@ where [refTable].[FullName] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\Extract User Data.Paths[Derived Column Output]"
-          TopLeft="567,322">
+          TopLeft="569,322">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-114.5,83"
+              EndConnector="-96,83"
               Start="0,0"
-              End="-114.5,75.5">
+              End="-96,75.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
@@ -1444,13 +2606,13 @@ where [refTable].[FullName] = ?</property>
                     Point2="0,41.5"
                     Point3="-4,41.5" />
                   <mssgle:LineSegment
-                    End="-110.5,41.5" />
+                    End="-92,41.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="-110.5,41.5"
-                    Point2="-114.5,41.5"
-                    Point3="-114.5,45.5" />
+                    Point1="-92,41.5"
+                    Point2="-96,41.5"
+                    Point3="-96,45.5" />
                   <mssgle:LineSegment
-                    End="-114.5,75.5" />
+                    End="-96,75.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1463,7 +2625,7 @@ where [refTable].[FullName] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Extract User Data\OLE DB Destination">
+    design-time-name="Package\Extract User Data\OLE DB Destination Staging">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1481,27 +2643,39 @@ where [refTable].[FullName] = ?</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="157,42"
-          Id="Package\Migrate Invalid User Data to Err Table\OLE DB Source"
+          Size="197,42"
+          Id="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging"
           TopLeft="82,60" />
         <NodeLayout
-          Size="115,42"
-          Id="Package\Migrate Invalid User Data to Err Table\Lookup"
+          Size="201,42"
+          Id="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users"
           TopLeft="107,146" />
         <EdgeLayout
           Id="Package\Migrate Invalid User Data to Err Table.Paths[OLE DB Source Output]"
-          TopLeft="162.5,102">
+          TopLeft="180.5,102">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,44"
+              EndConnector="27,44"
               Start="0,0"
-              End="0,36.5">
+              End="27,36.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.5" />
+                    End="0,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18"
+                    Point2="0,22"
+                    Point3="4,22" />
+                  <mssgle:LineSegment
+                    End="23,22" />
+                  <mssgle:CubicBezierSegment
+                    Point1="23,22"
+                    Point2="27,22"
+                    Point3="27,26" />
+                  <mssgle:LineSegment
+                    End="27,36.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1511,30 +2685,42 @@ where [refTable].[FullName] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="177,42"
-          Id="Package\Migrate Invalid User Data to Err Table\OLE DB Destination"
+          Size="205,42"
+          Id="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error"
           TopLeft="69,284" />
         <EdgeLayout
           Id="Package\Migrate Invalid User Data to Err Table.Paths[Lookup Match Output]"
-          TopLeft="161,188">
+          TopLeft="207.5,188">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,96"
+              EndConnector="-36,96"
               Start="0,0"
-              End="0,88.5">
+              End="-36,88.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,88.5" />
+                    End="0,44" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,44"
+                    Point2="0,48"
+                    Point3="-4,48" />
+                  <mssgle:LineSegment
+                    End="-32,48" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-32,48"
+                    Point2="-36,48"
+                    Point3="-36,52" />
+                  <mssgle:LineSegment
+                    End="-36,88.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,38.4453125,96.3827734375,11.609375"
+              BoundingBox="-66.19138671875,53,96.3827734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -1542,7 +2728,7 @@ where [refTable].[FullName] = ?</property>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Migrate Invalid User Data to Err Table\Lookup">
+    design-time-name="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
@@ -1565,7 +2751,7 @@ where [refTable].[FullName] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Migrate Invalid User Data to Err Table\OLE DB Destination">
+    design-time-name="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1574,6 +2760,250 @@ where [refTable].[FullName] = ?</property>
         <Name>TableInfoObjectType</Name>
         <Value
           type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Incremental Load">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Incremental Load\OLE DB Source Staging"
+          TopLeft="149,67" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Incremental Load\LookUp UserID Prod"
+          TopLeft="92,168" />
+        <EdgeLayout
+          Id="Package\Incremental Load.Paths[OLE DB Source Output]"
+          TopLeft="247.5,109">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-65.5,59"
+              Start="0,0"
+              End="-65.5,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.5"
+                    Point2="0,29.5"
+                    Point3="-4,29.5" />
+                  <mssgle:LineSegment
+                    End="-61.5,29.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-61.5,29.5"
+                    Point2="-65.5,29.5"
+                    Point3="-65.5,33.5" />
+                  <mssgle:LineSegment
+                    End="-65.5,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Incremental Load\OLE DB Destination Prod"
+          TopLeft="151,301" />
+        <EdgeLayout
+          Id="Package\Incremental Load.Paths[Lookup No Match Output]"
+          TopLeft="182,210">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="70.5,91"
+              Start="0,0"
+              End="70.5,83.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,41.5"
+                    Point2="0,45.5"
+                    Point3="4,45.5" />
+                  <mssgle:LineSegment
+                    End="66.5,45.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="66.5,45.5"
+                    Point2="70.5,45.5"
+                    Point3="70.5,49.5" />
+                  <mssgle:LineSegment
+                    End="70.5,83.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-20.55638671875,50.5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="338,42"
+          Id="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated"
+          TopLeft="540,284" />
+        <NodeLayout
+          Size="219,42"
+          Id="Package\Incremental Load\LookUp Match UserID Stage"
+          TopLeft="528,174" />
+        <EdgeLayout
+          Id="Package\Incremental Load.Paths[Lookup Match Output]"
+          TopLeft="637.5,216">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71.5,68"
+              Start="0,0"
+              End="71.5,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,30"
+                    Point2="0,34"
+                    Point3="4,34" />
+                  <mssgle:LineSegment
+                    End="67.5,34" />
+                  <mssgle:CubicBezierSegment
+                    Point1="67.5,34"
+                    Point2="71.5,34"
+                    Point3="71.5,38" />
+                  <mssgle:LineSegment
+                    End="71.5,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-12.44138671875,39,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Incremental Load\OLE DB Source Prod"
+          TopLeft="528,73" />
+        <EdgeLayout
+          Id="Package\Incremental Load.Paths[OLE DB Source Output1]"
+          TopLeft="619.5,115">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="18,59"
+              Start="0,0"
+              End="18,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.5"
+                    Point2="0,29.5"
+                    Point3="4,29.5" />
+                  <mssgle:LineSegment
+                    End="14,29.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="14,29.5"
+                    Point2="18,29.5"
+                    Point3="18,33.5" />
+                  <mssgle:LineSegment
+                    End="18,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Incremental Load\OLE DB Source Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Incremental Load\LookUp UserID Prod">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[prod].[Users]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Incremental Load\OLE DB Destination Prod">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Incremental Load\LookUp Match UserID Stage">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[stg].[Users]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
       </Property>
     </Properties>
   </PipelineComponentMetadata>

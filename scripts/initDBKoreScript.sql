@@ -67,7 +67,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'err.Users') AND type in (N'U'))
 BEGIN
 CREATE TABLE err.Users (
-StgID INT IDENTITY(1,1),
+StgID INT IDENTITY(1,1) PRIMARY KEY,
 UserID INT,
 FullName NVARCHAR(255),
 Age INT,
@@ -95,3 +95,35 @@ VALUES
 (109, 'Linda Anderson', 27, 'lindaanderson@example.com', '2021-04-16', '2023-01-25', 165.95),
 (110, 'Robert Wilson', 31, 'robertwilson@example.com', '2020-02-20', '2023-01-20', 175.00);
 END
+GO
+
+------------------------------
+-- -- proc to remove duplicate or null named users from stg.Users
+------------------------------
+CREATE PROC stgRemoveDuplicatesNullUsers
+AS 
+BEGIN
+	DELETE FROM stg.Users
+	WHERE  StgID NOT IN
+			(
+				SELECT      MAX(StgID) AS MaxUserStgID
+				FROM        stg.Users Users_1
+				GROUP BY	UserID, FullName
+			)
+			OR
+			FullName LIKE 'Null%'
+END
+GO
+
+------------------------------
+-- -- proc to upsert prod.Users RecordLastUpdated value
+------------------------------
+CREATE PROC upsertRecordLastUpdated
+@p_UserId INT
+AS
+BEGIN
+	update prod.Users
+	set RecordLastUpdated = GETDATE()
+	where UserID = @p_UserId
+END
+GO

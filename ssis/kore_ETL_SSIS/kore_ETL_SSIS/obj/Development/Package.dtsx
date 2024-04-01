@@ -11,8 +11,8 @@
   DTS:LocaleID="4105"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="98"
-  DTS:VersionGUID="{D5D2A14E-6A12-4CD5-9184-7D6C620E1A67}">
+  DTS:VersionBuild="110"
+  DTS:VersionGUID="{0D5FD80F-8F3B-4231-A3D8-3710D970B8CB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -968,11 +968,141 @@ where [refTable].[UserID] = ?</property>
               </outputs>
             </component>
             <component
-              refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated"
+              refId="Package\Incremental Load\Merge Stage Prod on UserID"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Stage Prod on UserID"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">2</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Left Input].Columns[OLE DB Source Staging.UserID]"
+                      cachedDataType="i4"
+                      cachedName="OLE DB Source Staging.UserID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Incremental Load\Sort Stage.Outputs[Sort Output].Columns[OLE DB Source Staging.UserID]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Left Input].Columns[LastLoginDate]"
+                      cachedDataType="dbDate"
+                      cachedName="LastLoginDate"
+                      lineageId="Package\Incremental Load\Sort Stage.Outputs[Sort Output].Columns[LastLoginDate]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Left Input].Columns[PurchaseTotal]"
+                      cachedDataType="r8"
+                      cachedName="PurchaseTotal"
+                      lineageId="Package\Incremental Load\Sort Stage.Outputs[Sort Output].Columns[PurchaseTotal]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Right Input].Columns[OLE DB Source Prod.UserID]"
+                      cachedDataType="i4"
+                      cachedName="OLE DB Source Prod.UserID"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Incremental Load\Sort Prod.Outputs[Sort Output].Columns[OLE DB Source Prod.UserID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[OLE DB Source Staging.UserID]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[OLE DB Source Staging.UserID]"
+                      name="OLE DB Source Staging.UserID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Left Input].Columns[OLE DB Source Staging.UserID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[OLE DB Source Prod.UserID]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[OLE DB Source Prod.UserID]"
+                      name="OLE DB Source Prod.UserID">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Right Input].Columns[OLE DB Source Prod.UserID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[LastLoginDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[LastLoginDate]"
+                      name="LastLoginDate">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Left Input].Columns[LastLoginDate]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[PurchaseTotal]"
+                      dataType="r8"
+                      lineageId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[PurchaseTotal]"
+                      name="PurchaseTotal">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Left Input].Columns[PurchaseTotal]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info"
               componentClassID="Microsoft.OLEDBCommand"
               contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
               description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
-              name="OLE DB Command Update Prod RecordLastUpdated"
+              name="OLE DB Command Update Prod from Stage Info"
               usesDispositions="true"
               version="2">
               <properties>
@@ -985,7 +1115,7 @@ where [refTable].[UserID] = ?</property>
                   description="The SQL command to be executed."
                   expressionType="Notify"
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">exec upsertRecordLastUpdated ?</property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">exec upsertProdUsers ?,?,?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -993,7 +1123,7 @@ where [refTable].[UserID] = ?</property>
               </properties>
               <connections>
                 <connection
-                  refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Connections[OleDbConnection]"
+                  refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Connections[OleDbConnection]"
                   connectionManagerID="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   connectionManagerRefId="Package.ConnectionManagers[DESKTOP-N74RU9U]"
                   description="The OLE DB runtime connection used to access the database."
@@ -1001,25 +1131,59 @@ where [refTable].[UserID] = ?</property>
               </connections>
               <inputs>
                 <input
-                  refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input]"
+                  refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input]"
                   errorOrTruncationOperation="Command Execution"
                   errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Command Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input].Columns[UserID]"
+                      refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input].Columns[OLE DB Source Prod.UserID]"
                       cachedDataType="i4"
-                      cachedName="UserID"
-                      externalMetadataColumnId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input].ExternalColumns[@p_UserId]"
-                      lineageId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Match Output].Columns[UserID]" />
+                      cachedName="OLE DB Source Prod.UserID"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input].ExternalColumns[@p_UserId]"
+                      lineageId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[OLE DB Source Prod.UserID]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input].Columns[PurchaseTotal]"
+                      cachedDataType="r8"
+                      cachedName="PurchaseTotal"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input].ExternalColumns[@p_PurchaseTotal]"
+                      lineageId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[PurchaseTotal]" />
+                    <inputColumn
+                      refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input].Columns[LastLoginDate]"
+                      cachedDataType="dbDate"
+                      cachedName="LastLoginDate"
+                      externalMetadataColumnId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input].ExternalColumns[@p_LastLoginDate]"
+                      lineageId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output].Columns[LastLoginDate]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
                     <externalMetadataColumn
-                      refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input].ExternalColumns[@p_UserId]"
+                      refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input].ExternalColumns[@p_UserId]"
                       dataType="i4"
                       name="@p_UserId">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input].ExternalColumns[@p_LastLoginDate]"
+                      dataType="dbDate"
+                      name="@p_LastLoginDate">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input].ExternalColumns[@p_PurchaseTotal]"
+                      dataType="i4"
+                      name="@p_PurchaseTotal">
                       <properties>
                         <property
                           dataType="System.Int32"
@@ -1032,29 +1196,29 @@ where [refTable].[UserID] = ?</property>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Output]"
+                  refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Outputs[OLE DB Command Output]"
                   exclusionGroup="1"
                   name="OLE DB Command Output"
-                  synchronousInputId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input]">
+                  synchronousInputId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output]"
+                  refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Outputs[OLE DB Command Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="OLE DB Command Error Output"
-                  synchronousInputId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input]">
+                  synchronousInputId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      lineageId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      refId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -1741,11 +1905,268 @@ where [refTable].[UserID] = ?</property>
                 </output>
               </outputs>
             </component>
+            <component
+              refId="Package\Incremental Load\Sort Prod"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort Prod"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Incremental Load\Sort Prod.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Incremental Load\Sort Prod.Inputs[Sort Input].Columns[UserID]"
+                      cachedDataType="i4"
+                      cachedName="UserID"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[UserID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Incremental Load\Sort Prod.Inputs[Sort Input].Columns[LastLoginDate]"
+                      cachedDataType="dbDate"
+                      cachedName="LastLoginDate"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[LastLoginDate]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Incremental Load\Sort Prod.Inputs[Sort Input].Columns[PurchaseTotal]"
+                      cachedDataType="r8"
+                      cachedName="PurchaseTotal"
+                      lineageId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[PurchaseTotal]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Incremental Load\Sort Prod.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\Sort Prod.Outputs[Sort Output].Columns[OLE DB Source Prod.UserID]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\Sort Prod.Outputs[Sort Output].Columns[OLE DB Source Prod.UserID]"
+                      name="OLE DB Source Prod.UserID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[UserID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Incremental Load\Sort Prod.Outputs[Sort Output].Columns[LastLoginDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Incremental Load\Sort Prod.Outputs[Sort Output].Columns[LastLoginDate]"
+                      name="LastLoginDate">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[LastLoginDate]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Incremental Load\Sort Prod.Outputs[Sort Output].Columns[PurchaseTotal]"
+                      dataType="r8"
+                      lineageId="Package\Incremental Load\Sort Prod.Outputs[Sort Output].Columns[PurchaseTotal]"
+                      name="PurchaseTotal">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output].Columns[PurchaseTotal]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Incremental Load\Sort Stage"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort Stage"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Incremental Load\Sort Stage.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Incremental Load\Sort Stage.Inputs[Sort Input].Columns[UserID]"
+                      cachedDataType="i4"
+                      cachedName="UserID"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Incremental Load\Sort Stage.Inputs[Sort Input].Columns[LastLoginDate]"
+                      cachedDataType="dbDate"
+                      cachedName="LastLoginDate"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[LastLoginDate]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Incremental Load\Sort Stage.Inputs[Sort Input].Columns[PurchaseTotal]"
+                      cachedDataType="r8"
+                      cachedName="PurchaseTotal"
+                      lineageId="Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[PurchaseTotal]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Incremental Load\Sort Stage.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Incremental Load\Sort Stage.Outputs[Sort Output].Columns[OLE DB Source Staging.UserID]"
+                      dataType="i4"
+                      lineageId="Package\Incremental Load\Sort Stage.Outputs[Sort Output].Columns[OLE DB Source Staging.UserID]"
+                      name="OLE DB Source Staging.UserID"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[UserID]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Incremental Load\Sort Stage.Outputs[Sort Output].Columns[LastLoginDate]"
+                      dataType="dbDate"
+                      lineageId="Package\Incremental Load\Sort Stage.Outputs[Sort Output].Columns[LastLoginDate]"
+                      name="LastLoginDate">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[LastLoginDate]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Incremental Load\Sort Stage.Outputs[Sort Output].Columns[PurchaseTotal]"
+                      dataType="r8"
+                      lineageId="Package\Incremental Load\Sort Stage.Outputs[Sort Output].Columns[PurchaseTotal]"
+                      name="PurchaseTotal">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Incremental Load\OLE DB Source Staging.Outputs[OLE DB Source Output].Columns[PurchaseTotal]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
           </components>
           <paths>
             <path
               refId="Package\Incremental Load.Paths[Lookup Match Output]"
-              endId="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated.Inputs[OLE DB Command Input]"
+              endId="Package\Incremental Load\Sort Stage.Inputs[Sort Input]"
+              name="Lookup Match Output"
+              startId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Incremental Load.Paths[Lookup Match Output1]"
+              endId="Package\Incremental Load\Sort Prod.Inputs[Sort Input]"
               name="Lookup Match Output"
               startId="Package\Incremental Load\LookUp Match UserID Stage.Outputs[Lookup Match Output]" />
             <path
@@ -1753,6 +2174,11 @@ where [refTable].[UserID] = ?</property>
               endId="Package\Incremental Load\OLE DB Destination Prod.Inputs[OLE DB Destination Input]"
               name="Lookup No Match Output"
               startId="Package\Incremental Load\LookUp UserID Prod.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\Incremental Load.Paths[Merge Join Output]"
+              endId="Package\Incremental Load\OLE DB Command Update Prod from Stage Info.Inputs[OLE DB Command Input]"
+              name="Merge Join Output"
+              startId="Package\Incremental Load\Merge Stage Prod on UserID.Outputs[Merge Join Output]" />
             <path
               refId="Package\Incremental Load.Paths[OLE DB Source Output]"
               endId="Package\Incremental Load\LookUp UserID Prod.Inputs[Lookup Input]"
@@ -1763,6 +2189,16 @@ where [refTable].[UserID] = ?</property>
               endId="Package\Incremental Load\LookUp Match UserID Stage.Inputs[Lookup Input]"
               name="OLE DB Source Output"
               startId="Package\Incremental Load\OLE DB Source Prod.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Incremental Load.Paths[Sort Output]"
+              endId="Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Incremental Load\Sort Stage.Outputs[Sort Output]" />
+            <path
+              refId="Package\Incremental Load.Paths[Sort Output1]"
+              endId="Package\Incremental Load\Merge Stage Prod on UserID.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Incremental Load\Sort Prod.Outputs[Sort Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -1797,7 +2233,7 @@ where [refTable].[UserID] = ?</property>
                   name="SqlCommand"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT        FullName
 FROM            stg.Users
-WHERE        (FullName = 'Null User')</property>
+WHERE        (UserID IS NULL)</property>
                 <property
                   dataType="System.String"
                   description="Specifies a SQL statement that uses parameters to generate the lookup table."
@@ -1805,7 +2241,7 @@ WHERE        (FullName = 'Null User')</property>
                   name="SqlCommandParam"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT        FullName
 FROM            stg.Users
-WHERE        (FullName = 'Null User')) [refTable]
+WHERE        (UserID IS NULL)) [refTable]
 where [refTable].[FullName] = ?</property>
                 <property
                   dataType="System.Int32"
@@ -2432,6 +2868,10 @@ where [refTable].[FullName] = ?</property>
           Id="Package\Extract User Data"
           TopLeft="257.5,202.5" />
         <NodeLayout
+          Size="164,42"
+          Id="Package\Incremental Load"
+          TopLeft="271,486" />
+        <NodeLayout
           Size="263,42"
           Id="Package\Migrate Invalid User Data to Err Table"
           TopLeft="242,296" />
@@ -2439,28 +2879,6 @@ where [refTable].[FullName] = ?</property>
           Size="201,42"
           Id="Package\Remove Duplicate Users"
           TopLeft="269,399" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="371.5,338">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,61"
-              Start="0,0"
-              End="0,53.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,53.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="340.5,244.5">
@@ -2495,10 +2913,6 @@ where [refTable].[FullName] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="164,42"
-          Id="Package\Incremental Load"
-          TopLeft="271,486" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="369.5,441">
@@ -2533,6 +2947,28 @@ where [refTable].[FullName] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="371.5,338">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61"
+              Start="0,0"
+              End="0,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -2542,13 +2978,13 @@ where [refTable].[FullName] = ?</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="166,42"
-          Id="Package\Extract User Data\Extract User Data"
-          TopLeft="317,180" />
-        <NodeLayout
           Size="218,42"
           Id="Package\Extract User Data\OLE DB Destination Staging"
           TopLeft="364,405" />
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Extract User Data\Extract User Data"
+          TopLeft="317,180" />
         <NodeLayout
           Size="162,42"
           Id="Package\Extract User Data\Set null Columns"
@@ -2638,144 +3074,34 @@ where [refTable].[FullName] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <TaskHost
-    design-time-name="Package\Migrate Invalid User Data to Err Table">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="197,42"
-          Id="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging"
-          TopLeft="82,60" />
-        <NodeLayout
-          Size="201,42"
-          Id="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users"
-          TopLeft="107,146" />
-        <EdgeLayout
-          Id="Package\Migrate Invalid User Data to Err Table.Paths[OLE DB Source Output]"
-          TopLeft="180.5,102">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="27,44"
-              Start="0,0"
-              End="27,36.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,18" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,18"
-                    Point2="0,22"
-                    Point3="4,22" />
-                  <mssgle:LineSegment
-                    End="23,22" />
-                  <mssgle:CubicBezierSegment
-                    Point1="23,22"
-                    Point2="27,22"
-                    Point3="27,26" />
-                  <mssgle:LineSegment
-                    End="27,36.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="205,42"
-          Id="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error"
-          TopLeft="69,284" />
-        <EdgeLayout
-          Id="Package\Migrate Invalid User Data to Err Table.Paths[Lookup Match Output]"
-          TopLeft="207.5,188">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-36,96"
-              Start="0,0"
-              End="-36,88.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,44" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,44"
-                    Point2="0,48"
-                    Point3="-4,48" />
-                  <mssgle:LineSegment
-                    End="-32,48" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-32,48"
-                    Point2="-36,48"
-                    Point3="-36,52" />
-                  <mssgle:LineSegment
-                    End="-36,88.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-66.19138671875,53,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string"></Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
     design-time-name="Package\Incremental Load">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Incremental Load\OLE DB Destination Prod"
+          TopLeft="151,301" />
+        <NodeLayout
+          Size="183,42"
+          Id="Package\Incremental Load\OLE DB Source Prod"
+          TopLeft="528,73" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Incremental Load\LookUp UserID Prod"
+          TopLeft="92,168" />
         <NodeLayout
           Size="197,42"
           Id="Package\Incremental Load\OLE DB Source Staging"
           TopLeft="149,67" />
         <NodeLayout
-          Size="180,42"
-          Id="Package\Incremental Load\LookUp UserID Prod"
-          TopLeft="92,168" />
+          Size="219,42"
+          Id="Package\Incremental Load\LookUp Match UserID Stage"
+          TopLeft="528,174" />
+        <NodeLayout
+          Size="315,42"
+          Id="Package\Incremental Load\OLE DB Command Update Prod from Stage Info"
+          TopLeft="414,466" />
         <EdgeLayout
           Id="Package\Incremental Load.Paths[OLE DB Source Output]"
           TopLeft="247.5,109">
@@ -2810,10 +3136,6 @@ where [refTable].[FullName] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="203,42"
-          Id="Package\Incremental Load\OLE DB Destination Prod"
-          TopLeft="151,301" />
         <EdgeLayout
           Id="Package\Incremental Load.Paths[Lookup No Match Output]"
           TopLeft="182,210">
@@ -2850,54 +3172,6 @@ where [refTable].[FullName] = ?</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="338,42"
-          Id="Package\Incremental Load\OLE DB Command Update Prod RecordLastUpdated"
-          TopLeft="540,284" />
-        <NodeLayout
-          Size="219,42"
-          Id="Package\Incremental Load\LookUp Match UserID Stage"
-          TopLeft="528,174" />
-        <EdgeLayout
-          Id="Package\Incremental Load.Paths[Lookup Match Output]"
-          TopLeft="637.5,216">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="71.5,68"
-              Start="0,0"
-              End="71.5,60.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,30" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,30"
-                    Point2="0,34"
-                    Point3="4,34" />
-                  <mssgle:LineSegment
-                    End="67.5,34" />
-                  <mssgle:CubicBezierSegment
-                    Point1="67.5,34"
-                    Point2="71.5,34"
-                    Point3="71.5,38" />
-                  <mssgle:LineSegment
-                    End="71.5,60.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-12.44138671875,39,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="183,42"
-          Id="Package\Incremental Load\OLE DB Source Prod"
-          TopLeft="528,73" />
         <EdgeLayout
           Id="Package\Incremental Load.Paths[OLE DB Source Output1]"
           TopLeft="619.5,115">
@@ -2932,11 +3206,197 @@ where [refTable].[FullName] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="220,42"
+          Id="Package\Incremental Load\Merge Stage Prod on UserID"
+          TopLeft="523,365" />
+        <EdgeLayout
+          Id="Package\Incremental Load.Paths[Merge Join Output]"
+          TopLeft="633,407">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-61.5,59"
+              Start="0,0"
+              End="-61.5,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.5"
+                    Point2="0,29.5"
+                    Point3="-4,29.5" />
+                  <mssgle:LineSegment
+                    End="-57.5,29.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-57.5,29.5"
+                    Point2="-61.5,29.5"
+                    Point3="-61.5,33.5" />
+                  <mssgle:LineSegment
+                    End="-61.5,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="131,42"
+          Id="Package\Incremental Load\Sort Stage"
+          TopLeft="389,257" />
+        <NodeLayout
+          Size="125,42"
+          Id="Package\Incremental Load\Sort Prod"
+          TopLeft="696,256" />
+        <EdgeLayout
+          Id="Package\Incremental Load.Paths[Lookup Match Output]"
+          TopLeft="210.666666666667,210">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="243.833333333333,47"
+              Start="0,0"
+              End="243.833333333333,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.0484581497797" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.0484581497797"
+                    Point2="0,19.0484581497797"
+                    Point3="4,19.0484581497797" />
+                  <mssgle:LineSegment
+                    End="239.833333333333,19.0484581497797" />
+                  <mssgle:CubicBezierSegment
+                    Point1="239.833333333333,19.0484581497797"
+                    Point2="243.833333333333,19.0484581497797"
+                    Point3="243.833333333333,23.0484581497797" />
+                  <mssgle:LineSegment
+                    End="243.833333333333,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="73.7252799479167,24.0484581497797,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Incremental Load.Paths[Lookup Match Output1]"
+          TopLeft="637.5,216">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="121,40"
+              Start="0,0"
+              End="121,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16"
+                    Point2="0,20"
+                    Point3="4,20" />
+                  <mssgle:LineSegment
+                    End="117,20" />
+                  <mssgle:CubicBezierSegment
+                    Point1="117,20"
+                    Point2="121,20"
+                    Point3="121,24" />
+                  <mssgle:LineSegment
+                    End="121,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="12.30861328125,25,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Incremental Load.Paths[Sort Output]"
+          TopLeft="454.5,299">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="143.166666666667,66"
+              Start="0,0"
+              End="143.166666666667,58.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.3140794223827" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.3140794223827"
+                    Point2="0,39.3140794223827"
+                    Point3="4,39.3140794223827" />
+                  <mssgle:LineSegment
+                    End="139.166666666667,39.3140794223827" />
+                  <mssgle:CubicBezierSegment
+                    Point1="139.166666666667,39.3140794223827"
+                    Point2="143.166666666667,39.3140794223827"
+                    Point3="143.166666666667,43.3140794223827" />
+                  <mssgle:LineSegment
+                    End="143.166666666667,58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Incremental Load.Paths[Sort Output1]"
+          TopLeft="758.5,298">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-90.1666666666667,67"
+              Start="0,0"
+              End="-90.1666666666667,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.9097472924187" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,35.9097472924187"
+                    Point2="0,39.9097472924187"
+                    Point3="-4,39.9097472924187" />
+                  <mssgle:LineSegment
+                    End="-86.1666666666667,39.9097472924187" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-86.1666666666667,39.9097472924187"
+                    Point2="-90.1666666666667,39.9097472924187"
+                    Point3="-90.1666666666667,43.9097472924187" />
+                  <mssgle:LineSegment
+                    End="-90.1666666666667,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\Incremental Load\OLE DB Source Staging">
+    design-time-name="Package\Incremental Load\OLE DB Destination Prod">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2972,7 +3432,7 @@ where [refTable].[FullName] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\Incremental Load\OLE DB Destination Prod">
+    design-time-name="Package\Incremental Load\OLE DB Source Staging">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -2996,6 +3456,132 @@ where [refTable].[FullName] = ?</property>
         <Name>UsedTableName</Name>
         <Value
           type="q3:string">[stg].[Users]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Migrate Invalid User Data to Err Table">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Migrate Invalid User Data to Err Table\OLE DB Source Staging"
+          TopLeft="82,60" />
+        <NodeLayout
+          Size="205,42"
+          Id="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error"
+          TopLeft="69,284" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users"
+          TopLeft="107,146" />
+        <EdgeLayout
+          Id="Package\Migrate Invalid User Data to Err Table.Paths[Lookup Match Output]"
+          TopLeft="207.5,188">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-36,96"
+              Start="0,0"
+              End="-36,88.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,44"
+                    Point2="0,48"
+                    Point3="-4,48" />
+                  <mssgle:LineSegment
+                    End="-32,48" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-32,48"
+                    Point2="-36,48"
+                    Point3="-36,52" />
+                  <mssgle:LineSegment
+                    End="-36,88.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-66.19138671875,53,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Migrate Invalid User Data to Err Table.Paths[OLE DB Source Output]"
+          TopLeft="180.5,102">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="27,44"
+              Start="0,0"
+              End="27,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18"
+                    Point2="0,22"
+                    Point3="4,22" />
+                  <mssgle:LineSegment
+                    End="23,22" />
+                  <mssgle:CubicBezierSegment
+                    Point1="23,22"
+                    Point2="27,22"
+                    Point3="27,26" />
+                  <mssgle:LineSegment
+                    End="27,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Migrate Invalid User Data to Err Table\OLE DB Destination Error">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Migrate Invalid User Data to Err Table\Lookup Null Name Users">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>

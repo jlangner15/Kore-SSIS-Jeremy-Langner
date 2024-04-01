@@ -116,14 +116,17 @@ END
 GO
 
 ------------------------------
--- -- proc to upsert prod.Users RecordLastUpdated value
+-- -- proc to upsert prod.Users LastLoginDate, PurchaseTotal RecordLastUpdated values
 ------------------------------
-CREATE PROC upsertRecordLastUpdated
+CREATE PROC upsertProdUsers
 @p_UserId INT
+, @p_LastLoginDate DATE
+, @p_PurchaseTotal FLOAT
 AS
 BEGIN
 	update prod.Users
 	set RecordLastUpdated = GETDATE()
+		, LastLoginDate = @p_LastLoginDate
+		, PurchaseTotal = @p_PurchaseTotal
 	where UserID = @p_UserId
 END
-GO

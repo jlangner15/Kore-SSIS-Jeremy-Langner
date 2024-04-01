@@ -15,10 +15,10 @@
 `backup/` contains `KoreAssignment_Jeremy_Langner.zip` a SQL database backup
 
 ### Assumptions
-1. Assume that a 'null' value within a csv record corresponds to a true null value and that the user just didnt insert 'null' as a string input.
+1. Assume that a 'null' value within a csv record corresponds to a true null value and that the user just didn't insert 'null' as a string input.
 In the `Extract User Data` Data Flow object a Derived Column converts 'null' string value to a true DB null value before populating staging database.
 
-2. Assume that a user without a UserID should be removed from staging and placed into a seperate table for further manual review by a developer. Thus I created a another table `err.Users` which gets populated by the `Migrate Invalid User Data to Err Table` Data Flow object via a Lookup for a null UserID value.
+2. Assume that a user without a UserID should be removed from staging and placed into a separate table for further manual review by a developer. Thus I created another table `err.Users` which gets populated by the `Migrate Invalid User Data to Err Table` Data Flow object via a Lookup for a null UserID value.
 
 3. Assume that a null Age, LastLoginDate, and PurchaseTotal are irrelevant and unimportant for the purpose of the application as users' age may be irrelevant, they may not have logged in or purchased anything.
 

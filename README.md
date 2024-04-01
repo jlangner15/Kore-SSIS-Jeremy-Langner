@@ -10,6 +10,10 @@
 
 `users/` contains the `users.csv` file holding users data to perform the ETL process on
 
+`results/` contains `results.xlsx` an excel sheet with prod, stg, and err Users table results after successful completion
+
+`backup/` contains `KoreAssignment_Jeremy_Langner.zip` a SQL database backup
+
 ### Assumptions
 1. Assume that a 'null' value within a csv record corresponds to a true null value and that the user just didnt insert 'null' as a string input.
 In the `Extract User Data` Data Flow object a Derived Column converts 'null' string value to a true DB null value before populating staging database.
